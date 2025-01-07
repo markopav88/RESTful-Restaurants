@@ -6,6 +6,7 @@ const ALL_RESTAURANTS = require("./restaurants").restaurants;
 /**
  * A list of starred restaurants.
  * In a "real" application, data would be maintained in a database.
+ * Here I just put it in a array
  */
 let STARRED_RESTAURANTS = [
   {
@@ -48,6 +49,20 @@ router.get("/", (req, res) => {
 /**
  * Feature 7: Getting a specific starred restaurant.
  */
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+
+  // Find the restaurant with the matching id.
+  const restaurant = STARRED_RESTAURANTS.find((restaurant) => restaurant.id === id);
+
+  // If the restaurant doesn't exist, let the client know.
+  if (!restaurant) {
+    res.sendStatus(404);
+    return;
+  }
+
+  res.json(restaurant);
+});
 
 
 
